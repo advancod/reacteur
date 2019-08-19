@@ -14,7 +14,6 @@ const list = [{ name: "First Expense",
                 user: "Superman",
                 amount: 95.45}]
 
-
 function App() {
     return (
       <div className="panels">
@@ -54,10 +53,8 @@ function App() {
 );
   };
 
-
   const NewExpense = () => {
     return (
-
           <form>
             <div className="card">
               <h2 className="card--title">New Expense</h2>
@@ -72,10 +69,9 @@ function App() {
                   User
                 </label>
                 <select className="select--select" name="userId">
-
                   <option value="none">Select an user</option>
                   {list.map((item) =>
-                  <option value="user1">{item.user}</option> )}
+                  <option value={item.name}>{item.user}</option> )}
                 </select>
               </div>
             </div>
@@ -89,5 +85,3 @@ function App() {
   }
 
   ReactDOM.render(<App />, document.getElementById('app'));
-
-  
