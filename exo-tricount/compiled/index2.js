@@ -3,7 +3,7 @@
 var list = [{
   name: "First Expense",
   user: "Etienne",
-  amount: 20.13
+  amount: 20.02
 }, {
   name: "Second Expense",
   user: "Superman",
@@ -106,7 +106,7 @@ var NewExpense = function NewExpense() {
     value: "none"
   }, "Select an user"), list.map(function (item) {
     return React.createElement("option", {
-      value: "user1"
+      value: item.name
     }, item.user);
   })))), React.createElement("div", {
     className: "button-container",

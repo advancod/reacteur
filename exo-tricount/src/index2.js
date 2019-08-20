@@ -1,6 +1,6 @@
 const list = [{ name: "First Expense", 
                 user: "Etienne",
-                amount: 20.13},
+                amount: 20.0},
                 { name: "Second Expense", 
                 user: "Superman",
                 amount: 79.76},
@@ -32,6 +32,7 @@ function App() {
   }
 
   const Expense = ({name, user, amount}) => {
+    
     return (
       <div className="expense">
         <div className="expense--info">
