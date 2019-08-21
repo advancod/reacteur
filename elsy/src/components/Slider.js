@@ -11,8 +11,8 @@ const Slider = props => {
           {props.name + ': '} <span className="slider-value">{props.value + props.unit}</span>
         </p>
         <div className="slider-range">
-        <RcSlider min={props.min} max={props.max} value={props.value} onChange={e => {
-    props.onChange(e.target.value);
+        <RcSlider min={props.min} max={props.max} value={props.value} onChange={val => {
+    props.onChange(val);
   }} />
 
         </div>
