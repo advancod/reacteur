@@ -1,11 +1,16 @@
 {
-  "name": "projet2",
+  "name": "projet-perso",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blueprintjs/core": "^3.18.0",
+    "cuid": "^2.1.6",
     "formik": "^1.5.8",
+    "overmind": "^19.0.1",
+    "overmind-react": "^20.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "yup": "^0.27.0"
   },
