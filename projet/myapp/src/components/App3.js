@@ -2,126 +2,118 @@ import React from 'react';
 import Card from './Card';
 import { TextField } from "@material-ui/core"
 import MenuItem from '@material-ui/core/MenuItem';
-import produce from "immer"
-
-const baseUsers = [
-	{
-		name: "Learn typescript",
-		done: true
-	},
-	{
-		todo: "Try immer",
-		done: false
-	}
-]
-
-const nextUsers= produce(baseUsers, draftUsers => {
-	draftUsers.push({todo: "Tweet about it"})
-	draftUsers[1].done = true
-})
-
-const SetProfile = props => {
-
-  if (props.user === "TOTO") {
-    props.setAmount(1000)
-    props.setDescription("Des sous pour toto")
-  }
-
-  if (props.user === "TATA") {
-    props.setAmount(20000)
-    props.setDescription("Des sous pour tata")
-  }
-
-}
 
 export default function App() {
 
-  const [users, setUsers] = React.useState(["TOTO", "TATA"])
-  const [add, setAdd] = React.useState(0)
+  const [addInput, setAddInput] = React.useState(0);
 
-  const [user, setUser] = React.useState("")
-  const [amount, setAmount] = React.useState(0)
-  const [inbox, setInbox] = React.useState(0)
-  const [description, setDescription] = React.useState("")
+  const [data, setData] = React.useState([
+    { user: 'TOTO', amount: 1000, completed: 0 },
+    { user: 'TATA', amount: 20000, completed: 0 }
+  ])
 
-  return(
+  const [user, setUser] = React.useState(data[0].user);
 
-      <div className="container">
-        <p>
+  const currentUser = data.find(u => u.user === user);
+  const amount = currentUser.amount - currentUser.completed;
+
+  // React.useEffect(() => {
+  // 	if (amount <= 0) {
+  // 		setInbox(0)
+  // 		setAmount(0)
+  // 	}
+  // }, [amount]);
+
+  return (
+
+    <div className="container">
+      <p>
         <Card>
-        <TextField
-                    select
-                    label="CHOISIR UN USER"
-                    fullWidth
-                    value={user}
-                    onChange={event => {setUser(event.target.value)}}
-                  >
-                  {users.map(choice => (
-                    <MenuItem value={choice} key={choice}>
-                      {choice}
-                    </MenuItem>
-                  ))}
-                </TextField>
+          <TextField
+            select
+            label="CHOISIR UN USER"
+            fullWidth
+            value={user}
+            onChange={event => { setUser(event.target.value) }}
+          >
+            {data.map(choice => (
+              <MenuItem value={choice.user} key={choice.user}>
+                {choice.user}
+              </MenuItem>
+            ))}
+          </TextField>
         </Card>
-        </p>
-        <p>
+      </p>
+      <p>
         <Card>
-        <TextField
-                  disabled
-                  label="USER"
-                  value={user}
-                  fullWidth
-                  InputProps={{
-                            readOnly: true,
-                            style: { color: 'blue'}
-               }}
-               />
-        <TextField
-               disabled
-               label="DESCRIPTION"
-               value={description}
-               fullWidth
-               InputProps={{
-                         readOnly: true,
-                         style: { color: 'blue'}
+          <TextField
+            disabled
+            label="USER"
+            value={user}
+            fullWidth
+            InputProps={{
+              readOnly: true,
+              style: { color: 'blue' }
             }}
-            />
-        <TextField
-               disabled
-               label="MONTANT"
-               value={amount}
-               fullWidth
-               InputProps={{
-                         readOnly: true,
-                         style: { color: 'blue'}
+          />
+          {/* <TextField
+            disabled
+            label="DESCRIPTION"
+            value={description}
+            fullWidth
+            InputProps={{
+              readOnly: true,
+              style: { color: 'blue' }
             }}
-            />
-        <TextField
-               disabled
-               label="INBOX"
-               value={inbox}
-               fullWidth
-               InputProps={{
-                         readOnly: true,
-                         style: { color: 'blue'}
+          /> */}
+          <TextField
+            disabled
+            label="MONTANT RESTANT"
+            value={amount}
+            fullWidth
+            InputProps={{
+              readOnly: true,
+              style: { color: 'blue' }
             }}
-            />
+          />
+          <TextField
+            disabled
+            label="INBOX"
+            value={currentUser.completed}
+            fullWidth
+            InputProps={{
+              readOnly: true,
+              style: { color: 'blue' }
+            }}
+          />
         </Card>
-        </p>
-        <p>
+      </p>
+      <p>
         <Card>
-        <TextField
-               label="ADD"
-               fullWidth
-               value={add}
-               type="number"
-               onChange={event => {setAdd(event.target.value)}}
-
-            />
-            <button className="btn-primary btn-block" onClick={() => setInbox(parseInt(parseInt(inbox,10) + parseInt(add,10)),10)}>DONNER</button>
-       </Card>
-        </p>
-      </div>
+          <TextField
+            label="ADD"
+            fullWidth
+            value={addInput}
+            type="number"
+            onChange={event => { setAddInput(event.target.value) }}
+          />
+          <button className="btn-primary btn-block" onClick={() => {
+            setData(prevData => {
+              return prevData.map(u => {
+                if (u.user === user) {
+                  return {
+                    ...u,
+                    completed: u.completed + parseInt(addInput, 10)
+                  }
+                }
+                return u;
+              })
+            })
+            setAddInput('');
+          }}>DONNER</button>
+        </Card>
+      </p>
+    </div>
 
   );
 
