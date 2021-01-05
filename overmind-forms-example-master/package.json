@@ -7,7 +7,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "jsonata": "^1.6.4",
     "overmind": "15.1.2",
     "overmind-react": "16.1.3",
